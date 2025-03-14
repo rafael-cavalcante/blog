@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.rafaelcavalcante.blog.model.Post;
 import com.rafaelcavalcante.blog.repository.PostRepository;
 
-import jakarta.annotation.PostConstruct;
+//import jakarta.annotation.PostConstruct;
 
 @Component
 public class DummyData {
