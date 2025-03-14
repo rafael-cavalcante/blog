@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -37,15 +37,23 @@
           </ol>
         </nav>
 
-        <div class="card">
-          <div class="card-header">Featured</div>
+        <div class="card mb-2" th:each="post : ${posts}">
+          <div class="card-header"><span th:text="${post.author}"></span></div>
           <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">
+            <h5 class="card-title"><span th:text="${post.title}"></span></h5>
+            <p
+              class="card-text"
+              th:utext="${#strings.abbreviate(post.content, 400)}"
+            >
               With supporting text below as a natural lead-in to additional
               content.
             </p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+          <div class="card-footer text-body-secondary">
+            <span
+              th:text="${#temporals.format(post.date, 'dd-MM-yyyy')}"
+            ></span>
           </div>
         </div>
       </div>
