@@ -6,7 +6,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Etapa 2: Criar a imagem final com o OpenJDK 21
-FROM openjdk:21-jdk-alpine
+FROM openjdk:21-jdk-slim
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
