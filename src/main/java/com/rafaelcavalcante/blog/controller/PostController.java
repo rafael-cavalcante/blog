@@ -39,19 +39,19 @@ public class PostController {
         return modelAndView;
     }
 
-    @GetMapping("/posts/newpost")
+    @GetMapping("/newpost")
     public ModelAndView getPostForm() {
         ModelAndView modelAndView = new ModelAndView("postForm");
         modelAndView.addObject("post", new Post());
         return modelAndView;
     }
 
-    @PostMapping("/posts/newpost")
+    @PostMapping("/newpost")
     public String savePostForm(@ModelAttribute @Valid Post post, BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("mensagem", "Verifique se os campos obrigatórios foram preenchidos!");
-            return "redirect:/posts/newpost";
+            return "redirect:/newpost";
         }
 
         post.setDate(LocalDate.now());
