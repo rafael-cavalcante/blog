@@ -3,10 +3,27 @@ FROM maven:3.8.5-openjdk-21 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
+
+# Cache de dependências para acelerar builds subsequentes
+RUN mvn dependency:go-offline
+
+# Construir o projeto
 RUN mvn clean package -DskipTests
 
 # Etapa 2: Criar a imagem final com o OpenJDK 21
 FROM openjdk:21-jdk-slim
-COPY --from=build /app/target/*.jar app.jar
+
+# Criar um diretório para a aplicação
+RUN mkdir /app
+
+# Copiar o JAR construído da etapa de build
+COPY --from=build /app/target/*.jar /app/app.jar
+
+# Definir o diretório de trabalho
+WORKDIR /app
+
+# Expor a porta da aplicação
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Comando para executar a aplicação
+CMD ["java", "-jar", "app.jar"]
