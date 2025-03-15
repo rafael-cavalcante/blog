@@ -23,6 +23,7 @@
                 </ol>
             </nav>
 
+            <th:block th:include="~{visualizarMensagem}"></th:block>
             <form th:action="@{/posts/newpost}" th:object="${post}" method="post">
                 <div class="form-group">
                     <label for="title">Title:</label>
